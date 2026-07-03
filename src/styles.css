@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: transparent;
+  overflow: hidden;
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.housing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 10px;
+  border-radius: 22px;
+  background: rgba(22, 24, 28, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: opacity 0.4s ease;
+}
+
+.light {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #3a3d42; /* dim gray when unlit */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.45);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+  pointer-events: none; /* clicks fall through to the drag-region housing */
+}
+
+/* --- lit states: exactly one light on at a time --- */
+
+body[data-state="limited"] .light.red {
+  background: #ff453a;
+  box-shadow: 0 0 14px 4px rgba(255, 69, 58, 0.65),
+    inset 0 -2px 6px rgba(120, 0, 0, 0.4);
+}
+
+body[data-state="thinking"] .light.yellow {
+  background: #ffd60a;
+  box-shadow: 0 0 14px 4px rgba(255, 214, 10, 0.6),
+    inset 0 -2px 6px rgba(140, 100, 0, 0.4);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+body[data-state="active"] .light.green {
+  background: #32d74b;
+  box-shadow: 0 0 14px 4px rgba(50, 215, 75, 0.6),
+    inset 0 -2px 6px rgba(0, 90, 20, 0.4);
+}
+
+/* --- off: everything dim, housing fades back --- */
+
+body[data-state="off"] .housing {
+  opacity: 0.35;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 14px 4px rgba(255, 214, 10, 0.6),
+      inset 0 -2px 6px rgba(140, 100, 0, 0.4);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow: 0 0 22px 8px rgba(255, 214, 10, 0.85),
+      inset 0 -2px 6px rgba(140, 100, 0, 0.4);
+    filter: brightness(1.15);
+  }
+}
