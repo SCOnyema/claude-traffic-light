@@ -5,7 +5,7 @@ activity status in real time.
 
 - 🟢 **green / `active`** — Claude finished responding (Stop hook)
 - 🟡 **yellow / `thinking`** — Claude is working (prompt submitted / tool use), pulses gently
-- 🔴 **red / `limited`** — usage limited (manual only in v1; v2 will detect the 5-hour usage window)
+- 🔴 **red / `limited`** — usage limited (StopFailure hook with `rate_limit` matcher, or set manually)
 - ⚫ **off** — session ended, or no activity for 10+ minutes
 
 ## How it works
@@ -70,6 +70,17 @@ with whatever you already have):
     ],
     "Stop": [
       {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"D:/2026Projects/claude-traffic-light/hooks/claude-light-hook.mjs\""
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "matcher": "rate_limit",
         "hooks": [
           {
             "type": "command",

@@ -14,6 +14,7 @@ const EVENT_TO_STATE = {
   PreToolUse: "thinking",
   PostToolUse: "thinking",
   Stop: "active",
+  StopFailure: "limited",
   SessionEnd: "off",
 };
 
