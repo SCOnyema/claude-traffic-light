@@ -106,3 +106,18 @@ pnpm light:off
 - Frameless, transparent, always-on-top, no taskbar entry.
 - Starts at the top-right of the primary monitor (12px margin); drag anywhere to move it.
 - System tray icon with **Show/Hide** and **Quit**.
+
+## Running it day-to-day
+
+After `pnpm tauri build`, the installer lands in
+`src-tauri\target\release\bundle\` (either the `.msi` or the `-setup.exe`,
+depending on your bundle config). Run it once to install the widget like any
+normal app.
+
+- **Pin to taskbar:** search for the app in the Start Menu, right-click it,
+  and choose **Pin to taskbar**.
+- **Auto-start on login:** press `Win+R`, run `shell:startup`, and drop a
+  shortcut to the installed exe into the folder that opens.
+- **One instance at a time:** don't run `pnpm tauri dev` while the installed
+  version is running — you'll get two widgets fighting over the same spot.
+  Check the system tray and **Quit** the installed one first.
